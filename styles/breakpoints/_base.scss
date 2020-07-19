@@ -1,0 +1,359 @@
+/******************************************************************
+
+Stylesheet: ベーススタイル
+
+******************************************************************/
+body {
+  font-weight: 400;
+  font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN",
+    "HGS明朝E", "メイリオ", Meiryo, serif;
+  color: $text;
+  line-height: 2;
+  font-size: 14px;
+
+  a {
+    color: $text;
+    transition: opacity 0.5s;
+    &:hover {
+      color: $text;
+      opacity: 0.7;
+    }
+  }
+}
+
+// 後に変更する
+.main-title {
+  font-size: 1.8em;
+  line-height : 1.5;
+}
+
+.sub-title{
+  display: block;
+  font-size: 1em;
+}
+
+.content-width {
+  width: 90%;
+  margin: 0 auto;
+  max-width: $contentMaxWidth;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.more-link {
+  display: inline-block;
+  text-decoration: underline;
+  margin-bottom: 3em;
+  font-size: 1.2em;
+}
+
+// ヘッダー
+.header {
+  width: 100%;
+  // height: auto;
+  position: fixed;
+  background-color: $White;
+  z-index: 100;
+  &__inner {
+    position: relative;
+    width: 90%;
+    height: $navHeight-sp;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    & > img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+// ナブトリガー
+.nav-menu-trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &__icon {
+    background-color: transparent;
+    border: none;
+    outline: none !important;
+    cursor: pointer;
+    display: inline-block;
+    & > span {
+      background-color: $Black;
+      width: 40px;
+      height: 3px;
+      display: block;
+      margin-bottom: 6px;
+      transition: transform 0.7s;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+// ナブメニュー（通常）
+.nav-menu {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-color: $White;
+  transition: opacity 0.5s, visibility 0.5s;
+  opacity: 0;
+  visibility: hidden;
+
+  &__info {
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 130px;
+
+    &__li {
+      text-align: center;
+      transform: translateY(6px);
+      opacity: 0;
+      transition: transform 0.7s, opacity 0.7s;
+      @for $i from 1 through 6 {
+        &:nth-child(#{$i}) {
+          transition-delay: $i * 0.07s;
+        }
+      }
+    }
+
+    &__link {
+      display: inline-block;
+      font-size: 1.5em;
+      font-weight: bold;
+      border-bottom: 1px solid $text;
+      margin-bottom: 1.8em;
+      text-decoration: none;
+    }
+  }
+  &__site-info {
+    padding-top: 70px;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    @extend .flex;
+    &__li {
+      display: inline-block;
+      margin-bottom: 1.2em;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: transform 1.5s, opacity 1.5s;
+    }
+    &__link {
+      font-weight: bold;
+      font-size: 1.2em;
+      text-decoration: none;
+    }
+  }
+}
+
+// ナブトリガーがクリックされたとき
+.menu-open {
+  & .nav-menu-trigger {
+    &__icon {
+      & > span {
+        &:nth-child(1) {
+          transform: translateY(9px) rotate(135deg);
+        }
+        &:nth-child(2) {
+          transform: translateX(-20px) scaleX(0);
+        }
+        &:nth-child(3) {
+          transform: translateY(-9px) rotate(-135deg);
+        }
+      }
+    }
+  }
+  & .nav-menu {
+    opacity: 1;
+    visibility: visible;
+
+    &__info {
+      &__li {
+        transform: none;
+        opacity: 1;
+      }
+    }
+    &__site-info {
+      &__li {
+        transform: none;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+// メインビジュアル
+#main-visual {
+  padding-top: $navHeight-sp;
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    &__overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+    &__content {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+    &__logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      & > img {
+        transform: scale(0.3);
+      }
+    }
+    &__copyright {
+      position: absolute;
+      top: 50%;
+      left: -10%;
+      transform: translateY(-50%) rotate(90deg);
+      display: block;
+      color: $White;
+      font-size: 0.5em;
+    }
+  }
+}
+
+// トラベルガイド
+.travel-guide {
+  &__inner {
+    @extend .flex;
+    @extend .content-width;
+    padding: 10% 0 5% 0;
+  }
+  &__title {
+    margin-bottom: 1em;
+  }
+  &__lead {
+    &--text, &--link {
+      margin-bottom: 3em;
+    }
+    
+  }
+}
+
+// メインコンテンツ
+.main-contents {
+  background-color: $bgc;
+  &__inner {
+    padding-top: 10%;
+    width: 90%;
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+  &__boxes {
+    @extend .flex;
+    justify-content: space-between;
+  }
+
+  &__box {
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    transition: opacity 0.5s;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .box {
+    &__img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 1em;
+    }
+    &__link {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      text-indent: -999px;
+      z-index: 2;
+    }
+    &__title {
+      margin-bottom: 0.5em;
+    }
+    &__lead {
+      margin-bottom: 2.5em;
+    }
+  }
+}
+
+// アクセス
+.access {
+  @extend .content-width;
+  &__inner{
+    margin: 10% 0 ;
+  }
+
+  &__title{
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  &__map-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 3em;
+  }
+  &__map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  &__way{
+    border-bottom: 1px solid #E8E8E8;
+    &__title{
+      margin: 1.2em 0 .5em 0;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    &__text{
+      margin-bottom: 3em;
+    }
+  }
+}
+
+.footer{
+  padding-top: 10%;
+  &__cultural-government{
+    padding: 10% 0;
+    text-align: center;
+  }
+  &__logo{
+    padding: 20% 0;
+    text-align: center;
+    background-color: $Black;
+   
+  }
+}
