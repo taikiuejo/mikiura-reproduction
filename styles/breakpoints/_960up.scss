@@ -27,8 +27,15 @@ Stylesheet: 960px以上のモニタで適用
 
 // ナブメニュー（通常）
 .nav-menu {
+  &__info {
+    padding-top: 130px;
+    &__link{
+      margin-bottom: 1.8em;
+    }
+  }
   &__site-info {
     justify-content: center;
+    padding-top: 1.5em;
     &__li {
       margin: 0 20px;
     }
